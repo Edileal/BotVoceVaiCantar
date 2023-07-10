@@ -19,15 +19,17 @@ namespace BotVoceVaiCantar.Service
         {
             var cantorEntity = await _cantorRepository.FindAsync(id);
             await _cantorRepository.EditAsync(cantorEntity);
+            return _mapper.Map<CantorResponse>(cantorEntity);
         }
 
         public async Task<CantorResponse> CriarAsync(CantorRequest request)
         {
             var cantorEntity = _mapper.Map<Cantor>(request);
             await _cantorRepository.AddAsync(cantorEntity);
+            return _mapper.Map<CantorResponse>(cantorEntity);
         }
 
-        public Task DeletarAsync(Guid id)
+        public async Task DeletarAsync(Guid id)
         {
             var cantorEntity = await _cantorRepository.FindAsync(id);
             await _cantorRepository.RemoveAsync(cantorEntity);
@@ -35,12 +37,14 @@ namespace BotVoceVaiCantar.Service
 
         public async Task<CantorResponse> ObterPorIdAsync(Guid id)
         {
-            return await _cantorRepository.FindAsync(id);
+            var cantorEntity = await _cantorRepository.FindAsync(id);
+            return _mapper.Map<CantorResponse>(cantorEntity);
         }
 
         public async Task<IEnumerable<CantorResponse>> ObterTodosAsync()
         {
-            return await _cantorRepository.GetAllAsync();
+            var listaCantor = await _cantorRepository.ListAsync();
+            return _mapper.Map<IEnumerable<CantorResponse>>(listaCantor);
         }
     }
 }
