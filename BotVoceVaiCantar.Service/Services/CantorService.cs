@@ -3,7 +3,7 @@ using BotVoceVaiCantar.Domain.Contracts;
 using BotVoceVaiCantar.Domain.Entities;
 using BotVoceVaiCantar.Domain.Interfaces;
 
-namespace BotVoceVaiCantar.Service
+namespace BotVoceVaiCantar.Service.Services
 {
     public class CantorService : ICantorService
     {
