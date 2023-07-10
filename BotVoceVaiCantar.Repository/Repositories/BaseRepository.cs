@@ -14,7 +14,7 @@ namespace BotVoceVaiCantar.Repository.Repositories
             _context = context;
         }
 
-        public async Task<T> FindAsync(Guid id)
+        public async Task<T> FindAsync(Guid? id)
         {
             return await _context.Set<T>().FindAsync(id);
         }
