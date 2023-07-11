@@ -1,6 +1,8 @@
 using BotVoceVaiCantar.Domain.Interfaces;
+using BotVoceVaiCantar.Repository.Context;
 using BotVoceVaiCantar.Repository.Repositories;
 using BotVoceVaiCantar.Service.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,12 @@ builder.Services.AddScoped<ICantorRepository, CantorRepository>();
 #region mapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 #endregion
+
+#region conexão banco
+var connectionString = Environment.GetEnvironmentVariable("BOT_MUSICA_CONNSTRING");
+builder.Services.AddDbContextPool<AppDbContext>(opt => opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+#endregion
+
 var app = builder.Build();
 
 
