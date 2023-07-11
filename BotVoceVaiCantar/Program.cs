@@ -23,7 +23,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 #endregion
 
 #region conexão banco
-var connectionString = builder.Configuration.GetConnectionString("BOT_MUSICA_CONNSTRING");
+var connectionString = Environment.GetEnvironmentVariable("BOT_MUSICA_CONNSTRING");
 builder.Services.AddDbContextPool<AppDbContext>(opt => opt.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 #endregion
 

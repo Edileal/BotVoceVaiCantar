@@ -5,9 +5,9 @@ namespace BotVoceVaiCantar.Repository.Context
 {
     public class AppDbContext : DbContext
     {
-        protected AppDbContext(DbContextOptions<AppDbContext> options) : base (options) { }
-
         public DbSet<Cantor> Cantores { get; set; }
-        
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base (options) { }
+
+       
     }
 }
