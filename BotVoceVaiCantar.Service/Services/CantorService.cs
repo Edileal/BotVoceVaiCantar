@@ -9,10 +9,13 @@ namespace BotVoceVaiCantar.Service.Services
     {
         private readonly IMapper _mapper;
         private readonly ICantorRepository _cantorRepository;
-        public CantorService(ICantorRepository cantorRepository, IMapper mapper)
+        private readonly IBotJsRepository _botJsRepository;
+        public readonly HttpClient _httpClient;
+        public CantorService(ICantorRepository cantorRepository, IMapper mapper, HttpClient httpClient)
         {
             _cantorRepository = cantorRepository;
             _mapper = mapper;
+            _httpClient = httpClient;
         }
 
         public async Task<CantorResponse> AtualizarAsync(Guid? id, CantorRequest request)
@@ -33,6 +36,11 @@ namespace BotVoceVaiCantar.Service.Services
         {
             var cantorEntity = await _cantorRepository.FindAsync(id);
             await _cantorRepository.RemoveAsync(cantorEntity);
+        }
+
+        public async Task EnviarCantorDiaAsync(LembreteRequest lembrete)
+        {
+            await _botJsRepository.PostAsJsonNoContentAsync(lembrete); 
         }
 
         public async Task<CantorResponse> ObterPorIdAsync(Guid id)
