@@ -23,8 +23,8 @@ namespace BotVoceVaiCantar.Controllers
         {
             try
             {
-                var result = await _cantorService.EnviarCantorDiaAsync(request);
-                return Created(nameof(Post), result);
+                await _cantorService.EnviarCantorDiaAsync(request);
+                return Created(nameof(Post), new {request});
             }
             catch (ArgumentException exception)
             {

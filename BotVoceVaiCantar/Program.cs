@@ -1,5 +1,6 @@
 using BotVoceVaiCantar.Domain.Contracts;
 using BotVoceVaiCantar.Domain.Interfaces;
+using BotVoceVaiCantar.Domain.Settings;
 using BotVoceVaiCantar.Repository.Context;
 using BotVoceVaiCantar.Repository.Repositories;
 using BotVoceVaiCantar.Service.Services;
@@ -28,6 +29,10 @@ builder.Services.Configure<HttpOptions>(options =>
 
 builder.Services.Configure<HttpOptions>(builder.Configuration.GetSection("EnviaParaContato"));
 builder.Services.Configure<HttpOptions>(builder.Configuration.GetSection("EnviaParaGrupos"));
+#endregion
+
+#region HttpClient
+builder.Services.AddHttpClient<IBotJsRepository, BotJsRepository>();
 #endregion
 
 #region build service e repository

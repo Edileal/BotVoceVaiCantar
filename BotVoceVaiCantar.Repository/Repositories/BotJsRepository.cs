@@ -19,11 +19,6 @@ namespace BotVoceVaiCantar.Repository.Repositories
             _url = url;
         }
 
-        public async Task PostAsJsonNoContentAsync(string uri, object objeto)
-        {
-            var response = await _httpClient.PostAsJsonAsync(uri, objeto);
-        }
-
         public async Task PostAsJsonNoContentAsync(string number, string data)
         {
             var objetoParaEnviar = new

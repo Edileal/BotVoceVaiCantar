@@ -8,7 +8,7 @@ namespace BotVoceVaiCantar.Domain.Interfaces
         Task<CantorResponse> AtualizarAsync(Guid? id, CantorRequest request);
         Task DeletarAsync(Guid id);
         Task<CantorResponse> ObterPorIdAsync(Guid id);
-        Task<LembreteRequest> EnviarCantorDiaAsync(LembreteRequest lembrete);
+        Task EnviarCantorDiaAsync(LembreteRequest lembrete);
         Task<IEnumerable<CantorResponse>> ObterTodosAsync();
     }
 }
