@@ -40,7 +40,9 @@ namespace BotVoceVaiCantar.Service.Services
 
         public async Task EnviarCantorDiaAsync(LembreteRequest lembrete)
         {
-            await _botJsRepository.PostAsJsonNoContentAsync(lembrete); 
+            var cantorDoDia = await _cantorRepository.FindAsNoTrackingAsync(x => x.Telefone == lembrete.Telefone);
+            var dataFormatada = cantorDoDia.Data.ToString("yyyy-MM-dd");
+            await _botJsRepository.PostAsJsonNoContentAsync(cantorDoDia.Telefone, dataFormatada); 
         }
 
         public async Task<CantorResponse> ObterPorIdAsync(Guid id)

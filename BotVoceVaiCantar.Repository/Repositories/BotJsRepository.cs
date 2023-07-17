@@ -11,17 +11,27 @@ namespace BotVoceVaiCantar.Repository.Repositories
     public class BotJsRepository : IBotJsRepository
     {
         private readonly HttpClient _httpClient;
-        private readonly HttpEnviaData _enviaData;
+        private readonly HttpOptions _enviaData;
 
-        public BotJsRepository(HttpClient httpClient, HttpEnviaData enviaData)
+        public BotJsRepository(HttpClient httpClient, HttpOptions enviaData)
         {
             _httpClient = httpClient;
             _enviaData = enviaData;
         }
 
-        public async Task PostAsJsonNoContentAsync(LembreteRequest request)
+        public async Task PostAsJsonNoContentAsync(string uri, object objeto)
         {
-            string json = JsonConvert.SerializeObject(request);
+            var response = await _httpClient.PostAsJsonAsync(uri, objeto);
+        }
+
+        public async Task PostAsJsonNoContentAsync(string number, string data)
+        {
+            var objetoParaEnviar = new
+            {
+                numero = number,
+                msg = data,
+            };
+            string json = JsonConvert.SerializeObject(objetoParaEnviar);
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             // Chamada HTTP POST para a segunda API

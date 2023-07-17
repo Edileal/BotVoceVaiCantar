@@ -20,11 +20,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();
 
 #region Url
-var url = Environment.GetEnvironmentVariable("URL_ROTA_BOT");
-builder.Services.Configure<HttpEnviaData>(options =>
+/*var url = Environment.GetEnvironmentVariable("URL_ROTA_BOT");
+builder.Services.Configure<HttpOptions>(options =>
 {
     options.Url = url;
-});
+});*/
+
+builder.Services.Configure<HttpOptions>(builder.Configuration.GetSection("ZapJs"));
 #endregion
 
 #region build service e repository

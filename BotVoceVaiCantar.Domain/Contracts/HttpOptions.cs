@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BotVoceVaiCantar.Domain.Contracts
 {
-    public class HttpEnviaData
+    public class HttpOptions
     {
         public string Url { get; set; }
     }
