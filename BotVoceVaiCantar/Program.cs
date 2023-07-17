@@ -26,7 +26,8 @@ builder.Services.Configure<HttpOptions>(options =>
     options.Url = url;
 });*/
 
-builder.Services.Configure<HttpOptions>(builder.Configuration.GetSection("ZapJs"));
+builder.Services.Configure<HttpOptions>(builder.Configuration.GetSection("EnviaParaContato"));
+builder.Services.Configure<HttpOptions>(builder.Configuration.GetSection("EnviaParaGrupos"));
 #endregion
 
 #region build service e repository
