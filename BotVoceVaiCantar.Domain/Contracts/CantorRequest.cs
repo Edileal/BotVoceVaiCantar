@@ -4,6 +4,6 @@
     {
         public string Name { get; set; }
         public string Telefone { get; set; }
-        public DateTime Data { get; set; }
+        public DateTime? Data { get; set; }
     }
 }

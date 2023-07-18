@@ -46,9 +46,9 @@ namespace BotVoceVaiCantar.Repository.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task RemoveAsync(T item)
+        public async Task RemoveAsync(Guid? id)
         {
-            _context.Set<T>().Remove(item);
+            _context.Remove(id);
             await _context.SaveChangesAsync();
         }
 
