@@ -43,7 +43,8 @@ namespace BotVoceVaiCantar.Service.Services
 
         public async Task DeletarAsync(Guid id)
         {
-            var cantorEntity = await ObterPorIdAsync(id);           
+            await ObterPorIdAsync(id);          
+            //está dessa forma apenas para eu testar se funciona a validação dessa forma
             await _cantorRepository.RemoveAsync(id);
         }
 
@@ -67,10 +68,16 @@ namespace BotVoceVaiCantar.Service.Services
             return _mapper.Map<IEnumerable<CantorResponse>>(listaCantor);
         }
 
-        //public async Task<CantorResponse> AdicionarEOuAlterarData(DateTime dataNova, Guid id)
-        //{
-        //    var cantorEntity = await ObterPorIdAsync(id);
-            
-        //}
+        public async Task<CantorResponse> AdicionarEOuAlterarData(DateTime dataNova, Guid id)
+        {
+            var cantorEntity = await _cantorRepository.FindAsync(id);
+            if (cantorEntity is null)
+            {
+                throw new ArgumentNullException("Não há cantores cadastrados");
+            }
+            cantorEntity.Data = dataNova;
+            await _cantorRepository.EditAsync(cantorEntity);
+            return _mapper.Map<CantorResponse>(cantorEntity);
+        }
     }
 }

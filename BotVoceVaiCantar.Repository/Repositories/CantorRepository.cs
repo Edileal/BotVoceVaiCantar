@@ -9,5 +9,6 @@ namespace BotVoceVaiCantar.Repository.Repositories
         public CantorRepository(AppDbContext context) : base(context)
         {
         }
+       
     }
 }

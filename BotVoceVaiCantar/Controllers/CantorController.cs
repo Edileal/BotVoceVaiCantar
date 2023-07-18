@@ -118,5 +118,26 @@ namespace BotVoceVaiCantar.Controllers
             }
         }
 
+        [HttpPatch("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<CantorResponse>> PatchData(DateTime dataNova, Guid id)
+        {
+
+            try
+            {
+                var result = await _cantorService.AdicionarEOuAlterarData(dataNova, id);
+                return Ok(result);
+            }
+            catch (ArgumentNullException exception)
+            {
+                return NotFound(exception.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
     }
 }
