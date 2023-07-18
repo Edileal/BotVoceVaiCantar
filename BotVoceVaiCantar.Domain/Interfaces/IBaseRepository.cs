@@ -10,7 +10,7 @@ namespace BotVoceVaiCantar.Domain.Interfaces
         Task<IEnumerable<T>> ListAsync();
         Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>> expression);
         Task AddAsync(T item);
-        Task RemoveAsync(T item);
+        Task RemoveAsync(Guid? id);
         Task EditAsync(T item);
     }
 }
