@@ -54,8 +54,13 @@ namespace BotVoceVaiCantar.Service.Services
         public async Task EnviarCantorDiaAsync(LembreteRequest lembrete)
         {
             var cantorDoDia = await _cantorRepository.FindAsNoTrackingAsync(x => x.Telefone == lembrete.Telefone);
-            var dataFormatada = cantorDoDia.Data.ToString();
-            await _botJsRepository.PostAsJsonNoContentAsync(cantorDoDia.Telefone, dataFormatada); 
+            var dataAviso = cantorDoDia.Data.Value.AddDays(-5);   
+            if(dataAviso == DateTime.Now)
+            {
+                var dataFormatada = cantorDoDia.Data.ToString();
+                await _botJsRepository.PostAsJsonNoContentAsync(cantorDoDia.Telefone, dataFormatada);
+            }
+            
         }
 
         public async Task<CantorResponse> ObterPorIdAsync(Guid id)
