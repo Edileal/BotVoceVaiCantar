@@ -9,10 +9,13 @@ namespace BotVoceVaiCantar.Service.Services
     {
         private readonly IMapper _mapper;
         private readonly ICantorRepository _cantorRepository;
-        public CantorService(ICantorRepository cantorRepository, IMapper mapper)
+        private readonly IBotJsRepository _botJsRepository;
+        public readonly HttpClient _httpClient;
+        public CantorService(ICantorRepository cantorRepository, IMapper mapper, HttpClient httpClient)
         {
             _cantorRepository = cantorRepository;
             _mapper = mapper;
+            _httpClient = httpClient;
         }
 
         public async Task<CantorResponse> AtualizarAsync(Guid? id, CantorRequest request)
@@ -46,6 +49,13 @@ namespace BotVoceVaiCantar.Service.Services
             await ObterPorIdAsync(id);          
             //está dessa forma apenas para eu testar se funciona a validação dessa forma
             await _cantorRepository.RemoveAsync(id);
+        }
+
+        public async Task EnviarCantorDiaAsync(LembreteRequest lembrete)
+        {
+            var cantorDoDia = await _cantorRepository.FindAsNoTrackingAsync(x => x.Telefone == lembrete.Telefone);
+            var dataFormatada = cantorDoDia.Data.ToString("yyyyMMdd");
+            await _botJsRepository.PostAsJsonNoContentAsync(cantorDoDia.Telefone, dataFormatada); 
         }
 
         public async Task<CantorResponse> ObterPorIdAsync(Guid id)

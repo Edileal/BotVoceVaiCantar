@@ -1,4 +1,6 @@
+using BotVoceVaiCantar.Domain.Contracts;
 using BotVoceVaiCantar.Domain.Interfaces;
+using BotVoceVaiCantar.Domain.Settings;
 using BotVoceVaiCantar.Repository.Context;
 using BotVoceVaiCantar.Repository.Repositories;
 using BotVoceVaiCantar.Service.Services;
@@ -16,6 +18,22 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthorization();
+
+#region Url
+/*var url = Environment.GetEnvironmentVariable("URL_ROTA_BOT");
+builder.Services.Configure<HttpOptions>(options =>
+{
+    options.Url = url;
+});*/
+
+builder.Services.Configure<HttpOptions>(builder.Configuration.GetSection("EnviaParaContato"));
+builder.Services.Configure<HttpOptions>(builder.Configuration.GetSection("EnviaParaGrupos"));
+#endregion
+
+#region HttpClient
+builder.Services.AddHttpClient<IBotJsRepository, BotJsRepository>();
+#endregion
 
 #region build service e repository
 builder.Services.AddScoped<ICantorService, CantorService>();
