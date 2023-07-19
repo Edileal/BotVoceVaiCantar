@@ -4,6 +4,6 @@ namespace BotVoceVaiCantar.Domain.Interfaces
 {
     public interface IAutenticacaoService
     {
-        Task<AutenticacaoResponse> AutenticarAsync(string nome, string senha);
+        Task<AutenticacaoResponse> AutenticarAsync(AutenticacaoRequest request);
     }
 }
